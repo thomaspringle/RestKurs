@@ -4,16 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.eclipse.jetty.server.Server;
@@ -72,13 +69,14 @@ public class MovieResourceTest {
 		
 		HttpPost httpPost = new HttpPost("/webapi/movies");
 		httpPost.setHeader("Accept", "application/json");
-		httpPost.setEntity(new HttpEntity);
-		
-		HttpResponse httpResponse = httpHelper.executeMethod(httpPost);
+//		httpPost.setEntity(new HttpEntity);
 		
 		String data = "{movie: {}}";
+		httpPost.setEntity(new StringEntity(data, ContentType.create("application/json")));
+
+		HttpResponse response = httpHelper.executeMethod(httpPost);
 		
-		HttpResponse response = httpClientHelper.POST("/webapi/movies", "application/json", data);
+		//HttpResponse response = HttpClientHelper.POST("/webapi/movies", "application/json", data);
 		
 		String resource = HttpClientHelper.responseData(response, "application/json");
 //		List<Movie> parsedMovies = deserializeMovies(resource);

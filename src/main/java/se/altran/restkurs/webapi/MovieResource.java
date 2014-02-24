@@ -41,6 +41,7 @@ public class MovieResource {
 	public Response movie(@Context UriInfo uriInfo, String jsonMovie) {
 		String id = createMovie(jsonMovie);
 		URI movieUri = uriInfo.getBaseUriBuilder().path(MovieResource.class).path(id).build();
+		System.out.println(movieUri);
 		return Response.created(movieUri).build();
 	}
 	
