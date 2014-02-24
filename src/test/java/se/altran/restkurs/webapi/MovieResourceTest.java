@@ -4,9 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.eclipse.jetty.server.Server;
@@ -48,8 +55,9 @@ public class MovieResourceTest {
 		
 		// Read the Movies resource as a JSON String
 		HttpClientHelper httpClientHelper = new HttpClientHelper("127.0.0.1", 8090);
-		String resource = httpClientHelper.getResource("/webapi/movies", "application/json");
+		HttpResponse response = httpClientHelper.GET("/webapi/movies", "application/json");
 		
+		String resource = HttpClientHelper.responseData(response, "application/json");
 		List<Movie> parsedMovies = deserializeMovies(resource);
 
 		assertEquals("All movies were not found.", movies.size(), parsedMovies.size());
@@ -59,12 +67,24 @@ public class MovieResourceTest {
 	public void testMovies_POST() throws Exception {
 		
 		// Read the Movies resource as a JSON String
-		HttpClientHelper httpClientHelper = new HttpClientHelper("127.0.0.1", 8090);
-		String resource = httpClientHelper.getResource("/webapi/movies", "application/json");
+		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
+		//httpClientHelper.withHeader("Accept", "application/json");
 		
-		List<Movie> parsedMovies = deserializeMovies(resource);
+		HttpPost httpPost = new HttpPost("/webapi/movies");
+		httpPost.setHeader("Accept", "application/json");
+		httpPost.setEntity(new HttpEntity);
+		
+		HttpResponse httpResponse = httpHelper.executeMethod(httpPost);
+		
+		String data = "{movie: {}}";
+		
+		HttpResponse response = httpClientHelper.POST("/webapi/movies", "application/json", data);
+		
+		String resource = HttpClientHelper.responseData(response, "application/json");
+//		List<Movie> parsedMovies = deserializeMovies(resource);
+		System.out.println(resource);
 
-		assertEquals("All movies were not found.", movies.size(), parsedMovies.size());
+		//assertEquals("All movies were not found.", movies.size(), parsedMovies.size());
 	}
 	
 	protected List<Movie> deserializeMovies(String jsonMovies) throws Exception {

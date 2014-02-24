@@ -2,6 +2,7 @@ package se.altran.restkurs.main;
 
 import static org.junit.Assert.*;
 
+import org.apache.http.HttpResponse;
 import org.eclipse.jetty.server.Server;
 import org.junit.Test;
 
@@ -21,7 +22,8 @@ public class AltranRESTServerTest {
 
 			// Verify that the server responds
 			HttpClientHelper httpClientHelper = new HttpClientHelper("127.0.0.1", 8090);
-			String resource = httpClientHelper.getResource("/webapi/", "application/json");
+			HttpResponse response =  httpClientHelper.GET("/webapi/", "application/json");
+			String resource = HttpClientHelper.responseData(response, "application/json");
 			
 			assertNotNull("The server must return something to show that it is alive.", resource);
 			
