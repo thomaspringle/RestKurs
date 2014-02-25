@@ -32,24 +32,34 @@ public class MovieResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Movie> movies() {
-		return movieService.getMovies();
+	public List<MovieBean> movies() {
+		// Anti corruption layer
+		List<MovieBean> movieBeans = MovieBeanHelper.asMovieBeans(movieService.getMovies());
+		return movieBeans;
+	}
+
+
+	@GET
+	@Path("/{movieId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public MovieBean movie(@PathParam("movieId") String movieId) {
+		Movie movie = movieService.getMovie(movieId);
+		
+		return new MovieBean(movie);
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response movie(@Context UriInfo uriInfo, String jsonMovie) {
-		String id = createMovie(jsonMovie);
+	public Response movieObj(@Context UriInfo uriInfo, MovieBean movieBean) {
+
+		String id = movieService.createMovie(movieBean);
+		
+		// Build URI to the created movie, and return it
 		URI movieUri = uriInfo.getBaseUriBuilder().path(MovieResource.class).path(id).build();
-		System.out.println(movieUri);
 		return Response.created(movieUri).build();
 	}
-	
-	private String createMovie(String jsonMovie) {
-		// TODO Auto-generated method stub
-		return "1234";
-	}
 
+	
 	@PUT
 	@Path("/users/{userId}")
 	public String getUserById(@PathParam("userId") String userId, @QueryParam("name") String data) { 

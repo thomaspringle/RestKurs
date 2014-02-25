@@ -1,25 +1,27 @@
 package se.altran.restkurs.movie;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import java.util.UUID;
 
 public class Movie {
 
+	private final String id;
 	private String title;
 	private int year;
-	
-	Movie() {} // Used for deserialization
 	
 	public Movie(String title, int year) {
 		this.title = title;
 		this.year = year;
+		id = UUID.randomUUID().toString();
 	}
 	
-	@JsonProperty
+	public String getId() {
+		return id;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
 
-	@JsonProperty
 	public int getYear() {
 		return year;
 	}
