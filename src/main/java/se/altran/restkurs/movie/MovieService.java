@@ -3,7 +3,7 @@ package se.altran.restkurs.movie;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.altran.restkurs.webapi.MovieBean;
+import se.altran.restkurs.webapi.movie.MovieBean;
 
 public class MovieService implements IMovieService {
 
@@ -24,7 +24,7 @@ public class MovieService implements IMovieService {
 				return movie;
 			}
 		}
-		throw new RuntimeException("A movie with the UUID was not found.");
+		throw new MovieNotFoundException("A movie with the specified UUID was not found.");
 	}
 
 	@Override
@@ -32,5 +32,18 @@ public class MovieService implements IMovieService {
 		Movie movie = new Movie(movieBean.getTitle(), movieBean.getYear());
 		movies.add(movie);
 		return movie.getId();
+	}
+
+	@Override
+	public List<Movie> deleteAllMovies() {
+		movies.clear();
+		return movies;
+	}
+
+	@Override
+	public Movie deleteMovie(String movieId) {
+		Movie movie = getMovie(movieId);
+		movies.remove(movie);
+		return movie;
 	}
 }

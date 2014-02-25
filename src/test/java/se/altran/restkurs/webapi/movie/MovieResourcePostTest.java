@@ -1,4 +1,4 @@
-package se.altran.restkurs.webapi;
+package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -18,6 +18,8 @@ import org.junit.Test;
 
 import se.altran.restkurs.main.AltranREST;
 import se.altran.restkurs.movie.IMovieService;
+import se.altran.restkurs.webapi.HttpHelper;
+import se.altran.restkurs.webapi.movie.MovieBean;
 
 import com.google.inject.AbstractModule;
 

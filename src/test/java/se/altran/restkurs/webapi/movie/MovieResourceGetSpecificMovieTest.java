@@ -1,10 +1,11 @@
-package se.altran.restkurs.webapi;
+package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.jetty.server.Server;
 import org.junit.After;
@@ -14,6 +15,8 @@ import org.junit.Test;
 import se.altran.restkurs.main.AltranREST;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
+import se.altran.restkurs.webapi.HttpHelper;
+import se.altran.restkurs.webapi.movie.MovieBean;
 
 import com.google.inject.AbstractModule;
 
@@ -38,20 +41,22 @@ public class MovieResourceGetSpecificMovieTest {
 		// Start the server
 		AbstractModule testModule = new MovieTestModule(movieService);
 		server = AltranREST.startServer(8090, testModule);
-
 	}
 	
 	@Test
 	public void testMovies_GET_specificMovie() throws Exception {
 		
-		// GET specific movie with id
-		HttpClientHelper httpClientHelper = new HttpClientHelper("127.0.0.1", 8090);
+		// Read the Movies resource as a JSON String
+		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
 		String uri = "/webapi/movies/" + uuidGravity;
-		HttpResponse response = httpClientHelper.GET(uri, "application/json");
+		HttpGet httpGet = new HttpGet(uri);
+		
+		// Execute the request and get a response
+		HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
 
 		// Read the Movie response data as a JSON String
-		String resource = HttpClientHelper.responseData(response, "application/json");
-		MovieBean gravity = deserializeMovie(resource);
+		String responseData = HttpHelper.responseData(httpResponse, "application/json");
+		MovieBean gravity = deserializeMovie(responseData);
 
 		assertEquals("Gravity must have correct title", "Gravity", gravity.getTitle());
 		assertEquals("Gravity must have correct year", 2013, gravity.getYear());

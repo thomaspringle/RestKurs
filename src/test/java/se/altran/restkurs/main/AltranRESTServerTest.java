@@ -1,14 +1,16 @@
 package se.altran.restkurs.main;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.eclipse.jetty.server.Server;
 import org.junit.Test;
 
-import com.google.inject.AbstractModule;
+import se.altran.restkurs.webapi.HttpHelper;
 
-import se.altran.restkurs.webapi.HttpClientHelper;
+import com.google.inject.AbstractModule;
 
 
 public class AltranRESTServerTest {
@@ -21,11 +23,14 @@ public class AltranRESTServerTest {
 			Server server = AltranREST.startServer(8090, guiceModule);
 
 			// Verify that the server responds
-			HttpClientHelper httpClientHelper = new HttpClientHelper("127.0.0.1", 8090);
-			HttpResponse response =  httpClientHelper.GET("/webapi/", "application/json");
-			String resource = HttpClientHelper.responseData(response, "application/json");
+			// Read the Movies resource as a JSON String
+			HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
+			HttpGet httpGet = new HttpGet("/webapi");
 			
-			assertNotNull("The server must return something to show that it is alive.", resource);
+			HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
+			int statusCode = httpResponse.getStatusLine().getStatusCode();
+			
+			assertEquals("The server must return something to show that it is alive.", 404, statusCode);
 			
 			server.stop();
 		} catch (Exception e) {

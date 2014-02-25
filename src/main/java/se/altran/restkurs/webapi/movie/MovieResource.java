@@ -1,9 +1,10 @@
-package se.altran.restkurs.webapi;
+package se.altran.restkurs.webapi.movie;
 
 import java.net.URI;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -15,10 +16,12 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
+import se.altran.restkurs.movie.MovieNotFoundException;
 
 import com.google.inject.Inject;
 
@@ -59,6 +62,24 @@ public class MovieResource {
 		return Response.created(movieUri).build();
 	}
 
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<MovieBean> deleteMovies() {
+		List<Movie> movies = movieService.deleteAllMovies();
+		return MovieBeanHelper.asMovieBeans(movies);
+	}
+	
+	@DELETE
+	@Path("/{movieId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteMovie(@PathParam("movieId") String movieId) {
+		try {
+			Movie movie = movieService.deleteMovie(movieId);
+			return Response.ok(new MovieBean(movie)).build();
+		} catch (MovieNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
 	
 	@PUT
 	@Path("/users/{userId}")

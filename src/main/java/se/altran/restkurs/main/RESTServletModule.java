@@ -2,7 +2,7 @@ package se.altran.restkurs.main;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 
-import se.altran.restkurs.webapi.MovieResource;
+import se.altran.restkurs.webapi.movie.MovieResource;
 
 import com.google.inject.Scopes;
 import com.google.inject.servlet.ServletModule;

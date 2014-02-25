@@ -1,4 +1,4 @@
-package se.altran.restkurs.webapi;
+package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.eclipse.jetty.server.Server;
@@ -19,6 +20,8 @@ import org.junit.Test;
 import se.altran.restkurs.main.AltranREST;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
+import se.altran.restkurs.webapi.HttpHelper;
+import se.altran.restkurs.webapi.movie.MovieBean;
 
 import com.google.inject.AbstractModule;
 
@@ -59,12 +62,13 @@ public class MovieResourceGetNotEmptyTest {
 	public void testMovies_GET_moviesExist() throws Exception {
 		
 		// Read the Movies resource as a JSON String
-		HttpClientHelper httpClientHelper = new HttpClientHelper("127.0.0.1", 8090);
-		HttpResponse response = httpClientHelper.GET("/webapi/movies", "application/json");
+		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
+		HttpGet httpGet = new HttpGet("/webapi/movies");
 		
-		String resource = HttpClientHelper.responseData(response, "application/json");
-		List<MovieBean> parsedMovies = deserializeMovies(resource);
-
+		HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
+		String responseData = HttpHelper.responseData(httpResponse, "application/json");
+		
+		List<MovieBean> parsedMovies = deserializeMovies(responseData);
 		assertFalse("Movies must exist.", movies.isEmpty());
 		assertEquals("All movies were not found.", movies.size(), parsedMovies.size());
 	}
@@ -73,11 +77,13 @@ public class MovieResourceGetNotEmptyTest {
 	public void testMovies_GET_correctMovies() throws Exception {
 		
 		// Read the Movies resource as a JSON String
-		HttpClientHelper httpClientHelper = new HttpClientHelper("127.0.0.1", 8090);
-		HttpResponse response = httpClientHelper.GET("/webapi/movies", "application/json");
+		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
+		HttpGet httpGet = new HttpGet("/webapi/movies");
 		
-		String resource = HttpClientHelper.responseData(response, "application/json");
-		List<MovieBean> parsedMovies = deserializeMovies(resource);
+		HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
+		String responseData = HttpHelper.responseData(httpResponse, "application/json");
+		
+		List<MovieBean> parsedMovies = deserializeMovies(responseData);
 
 
 		// Check that the movies are returned with correct values

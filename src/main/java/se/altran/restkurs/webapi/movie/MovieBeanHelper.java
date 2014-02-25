@@ -1,4 +1,4 @@
-package se.altran.restkurs.webapi;
+package se.altran.restkurs.webapi.movie;
 
 import java.util.ArrayList;
 import java.util.List;
