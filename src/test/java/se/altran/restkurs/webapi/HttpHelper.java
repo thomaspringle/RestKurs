@@ -17,21 +17,28 @@ public class HttpHelper {
 	
 	public HttpHelper(String site, int port) {
 		httpClient = new DefaultHttpClient();
-		
-		httpClient.getParams().setParameter("User-Agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)");
-		
 		basicHttpContext = new BasicHttpContext();
 		target = new HttpHost(site, port, "http");
 	}
 
+	/**
+	 * Executes a HTTP method in the current context (site and port)
+	 * @param method HTTP method
+	 * @return HTTPResponse of the completed request
+	 * @throws Exception
+	 */
 	public HttpResponse executeMethod(HttpRequest method) throws Exception {
 		HttpResponse response = httpClient.execute(target, method, basicHttpContext);
 		return response;
 	}
-	
-	public static String responseData(HttpResponse response, String contentType) throws Exception {
-		String responseContentType = contentType + "; charset=UTF-8";
-		response.setHeader("Content-Type", responseContentType);
+
+	/**
+	 * Returns the Response Entity as a String
+	 * @param response Response Entity from the execution of a HTTPRequest 
+	 * @return String data on UTF-8
+	 * @throws Exception
+	 */
+	public static String responseData(HttpResponse response) throws Exception {
 		HttpEntity entity = response.getEntity();
 		String resource = new String(EntityUtils.toString(entity).getBytes("ISO-8859-1"), "UTF-8");
 		

@@ -66,7 +66,7 @@ public class MovieResourceGetNotEmptyTest {
 		HttpGet httpGet = new HttpGet("/webapi/movies");
 		
 		HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
-		String responseData = HttpHelper.responseData(httpResponse, "application/json");
+		String responseData = HttpHelper.responseData(httpResponse);
 		
 		List<MovieBean> parsedMovies = deserializeMovies(responseData);
 		assertFalse("Movies must exist.", movies.isEmpty());
@@ -81,7 +81,7 @@ public class MovieResourceGetNotEmptyTest {
 		HttpGet httpGet = new HttpGet("/webapi/movies");
 		
 		HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
-		String responseData = HttpHelper.responseData(httpResponse, "application/json");
+		String responseData = HttpHelper.responseData(httpResponse);
 		
 		List<MovieBean> parsedMovies = deserializeMovies(responseData);
 

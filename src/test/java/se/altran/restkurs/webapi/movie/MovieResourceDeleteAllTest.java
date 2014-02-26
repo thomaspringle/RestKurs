@@ -82,10 +82,9 @@ public class MovieResourceDeleteAllTest {
 		// Execute method and receive response
 		HttpResponse response = httpHelper.executeMethod(httpDelete);
 		
-		String responseData = HttpHelper.responseData(response, "application/json");
+		String responseData = HttpHelper.responseData(response);
 		
 		List<MovieBean> movies = new ObjectMapper().readValue(responseData, new TypeReference<List<MovieBean>>(){});
-
 		assertTrue("Movies are empty after deletion", movies.isEmpty());
 	}
 

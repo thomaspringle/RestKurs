@@ -55,7 +55,7 @@ public class MovieResourceGetSpecificMovieTest {
 		HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
 
 		// Read the Movie response data as a JSON String
-		String responseData = HttpHelper.responseData(httpResponse, "application/json");
+		String responseData = HttpHelper.responseData(httpResponse);
 		MovieBean gravity = deserializeMovie(responseData);
 
 		assertEquals("Gravity must have correct title", "Gravity", gravity.getTitle());

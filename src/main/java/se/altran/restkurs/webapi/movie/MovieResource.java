@@ -62,6 +62,20 @@ public class MovieResource {
 		return Response.created(movieUri).build();
 	}
 
+	@PUT
+	@Path("/{movieId}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateMovie(@PathParam("movieId") String movieId, MovieBean movieBean) {
+		try {
+			Movie movie = movieService.updateMovie(movieBean);
+			return Response.ok(new MovieBean(movie)).build();
+		} catch (MovieNotFoundException e) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
+	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<MovieBean> deleteMovies() {

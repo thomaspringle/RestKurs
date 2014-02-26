@@ -13,6 +13,16 @@ public class Movie {
 		this.year = year;
 		id = UUID.randomUUID().toString();
 	}
+
+
+	public void updateTitle(String title) {
+		this.title = title;
+	}
+
+	public void updateYear(int year) {
+		this.year = year;
+	}
+	
 	
 	public String getId() {
 		return id;
@@ -50,4 +60,5 @@ public class Movie {
 			return false;
 		return true;
 	}
+
 }

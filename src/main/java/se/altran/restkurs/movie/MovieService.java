@@ -46,4 +46,14 @@ public class MovieService implements IMovieService {
 		movies.remove(movie);
 		return movie;
 	}
+
+	@Override
+	public Movie updateMovie(MovieBean movieBean) {
+		Movie movie = getMovie(movieBean.getId());
+		
+		movie.updateTitle(movieBean.getTitle());
+		movie.updateYear(movieBean.getYear());
+		
+		return movie;
+	}
 }

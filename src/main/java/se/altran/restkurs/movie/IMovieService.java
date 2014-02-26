@@ -16,4 +16,6 @@ public interface IMovieService {
 
 	public Movie deleteMovie(String movieId);
 
+	public Movie updateMovie(MovieBean movieBean);
+
 }

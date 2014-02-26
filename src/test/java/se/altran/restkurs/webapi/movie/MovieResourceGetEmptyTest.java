@@ -54,7 +54,7 @@ public class MovieResourceGetEmptyTest {
 		
 		// Execute the request and get a response
 		HttpResponse httpResponse = httpHelper.executeMethod(httpGet);
-		String responseData = HttpHelper.responseData(httpResponse, "application/json");
+		String responseData = HttpHelper.responseData(httpResponse);
 		
 		// Verify the returned data
 		List<MovieBean> parsedMovies = deserializeMovies(responseData);

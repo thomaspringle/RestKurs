@@ -50,7 +50,7 @@ public class MovieResourceDeleteSpecificTest {
 		server = AltranREST.startServer(8090, testModule);
 	}
 
-	// DELETE must return 200 - OK if the request was successful and nothing is returned
+	// DELETE must return 200 - OK if the request was successful
 	// http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.7
 	@Test
 	public void testMovies_DELETE_correctStatusCode() throws Exception {
@@ -100,7 +100,7 @@ public class MovieResourceDeleteSpecificTest {
 		HttpResponse response = httpHelper.executeMethod(httpDelete);
 		
 		// Verify that the correct movie has been deleted
-		String responseData = HttpHelper.responseData(response, "application/json");
+		String responseData = HttpHelper.responseData(response);
 		
 		MovieBean deletedMovie = new ObjectMapper().readValue(responseData, MovieBean.class);	
 		

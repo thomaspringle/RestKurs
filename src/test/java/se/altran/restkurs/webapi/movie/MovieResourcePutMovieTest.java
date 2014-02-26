@@ -23,7 +23,7 @@ import se.altran.restkurs.webapi.movie.MovieBean;
 
 import com.google.inject.AbstractModule;
 
-public class MovieResourcePostTest {
+public class MovieResourcePutMovieTest {
     
 	
 	private Server server;

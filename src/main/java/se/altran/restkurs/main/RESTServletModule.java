@@ -2,6 +2,8 @@ package se.altran.restkurs.main;
 
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 
+import se.altran.restkurs.webapi.JsonParsingExceptionMapper;
+import se.altran.restkurs.webapi.SecurityExceptionMapper;
 import se.altran.restkurs.webapi.movie.MovieResource;
 
 import com.google.inject.Scopes;
@@ -14,8 +16,9 @@ public class RESTServletModule extends ServletModule {
     @Override
     protected void configureServlets() {
     	
-//    	bind(ConnectedDevicesService.class).in(Scopes.SINGLETON);
         bind(MovieResource.class);
+        bind(SecurityExceptionMapper.class).in(Scopes.SINGLETON);
+        bind(JsonParsingExceptionMapper.class).in(Scopes.SINGLETON);
 
         
         // hook Jersey into Guice Servlet
