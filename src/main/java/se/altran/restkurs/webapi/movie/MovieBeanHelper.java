@@ -10,7 +10,7 @@ public class MovieBeanHelper {
 	public static List<MovieBean> asMovieBeans(List<Movie> movies) {
 		List<MovieBean> movieBeans = new ArrayList<>(movies.size());
 		for (Movie movie : movies) {
-			movieBeans.add(new MovieBean(movie));
+			movieBeans.add(movie.asMovieBean());
 		}
 		return movieBeans;
 	}

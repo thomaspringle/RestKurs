@@ -17,10 +17,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.altran.restkurs.main.AltranREST;
+import se.altran.restkurs.main.DomainModule;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.webapi.HttpHelper;
-import se.altran.restkurs.webapi.movie.MovieBean;
 
 import com.google.inject.AbstractModule;
 
@@ -34,13 +34,11 @@ public class MovieResourceGetEmptyTest {
 	
 		// Mock the MovieService with test data
 		IMovieService movieService = mock(IMovieService.class);
-		
 		movies = new ArrayList<>();
-	
 		when(movieService.getMovies()).thenReturn(movies);
 
 		// Start the server
-		AbstractModule testModule = new MovieTestModule(movieService);
+		AbstractModule testModule = new DomainModule(movieService);
 		server = AltranREST.startServer(8090, testModule);
 
 	}

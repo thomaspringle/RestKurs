@@ -13,10 +13,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.altran.restkurs.main.AltranREST;
+import se.altran.restkurs.main.DomainModule;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.webapi.HttpHelper;
-import se.altran.restkurs.webapi.movie.MovieBean;
 
 import com.google.inject.AbstractModule;
 
@@ -31,22 +31,20 @@ public class MovieResourceGetSpecificMovieTest {
 	public void setUp() throws Exception {
 	
 		// Mock the MovieService with some test data
-		IMovieService movieService = mock(IMovieService.class);
-		
 		Movie gravity = new Movie("Gravity", 2013);
 		uuidGravity = gravity.getId();
 		
+		IMovieService movieService = mock(IMovieService.class);
 		when(movieService.getMovie(uuidGravity)).thenReturn(gravity);
 		
 		// Start the server
-		AbstractModule testModule = new MovieTestModule(movieService);
+		AbstractModule testModule = new DomainModule(movieService);
 		server = AltranREST.startServer(8090, testModule);
 	}
 	
 	@Test
 	public void testMovies_GET_specificMovie() throws Exception {
 		
-		// Read the Movies resource as a JSON String
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
 		String uri = "/webapi/movies/" + uuidGravity;
 		HttpGet httpGet = new HttpGet(uri);

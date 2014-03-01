@@ -2,8 +2,6 @@ package se.altran.restkurs.webapi.movie;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import se.altran.restkurs.movie.Movie;
-
 
 public class MovieBean {
 	
@@ -17,12 +15,6 @@ public class MovieBean {
 		this.title = title;
 		this.year = year;
 		this.id = id;
-	}
-	
-	public MovieBean(Movie movie) {
-		this.title = movie.getTitle();
-		this.year = movie.getYear();
-		this.id = movie.getId();
 	}
 
 	@JsonProperty

@@ -2,6 +2,8 @@ package se.altran.restkurs.movie;
 
 import java.util.UUID;
 
+import se.altran.restkurs.webapi.movie.MovieBean;
+
 public class Movie {
 
 	private final String id;
@@ -23,19 +25,18 @@ public class Movie {
 		this.year = year;
 	}
 	
+	public MovieBean asMovieBean() {
+		return new MovieBean(id, title, year);
+	}
+	
+	public boolean hasId(String movieId) {
+		return this.id.equals(movieId);
+	}
 	
 	public String getId() {
 		return id;
 	}
 	
-	public String getTitle() {
-		return title;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

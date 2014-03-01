@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.altran.restkurs.main.AltranREST;
+import se.altran.restkurs.main.DomainModule;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.movie.MovieNotFoundException;
@@ -32,21 +33,19 @@ public class MovieResourceDeleteSpecificTest {
 	public void setUp() throws Exception {
 	
 		// Mock the MovieService with some test data
-		IMovieService movieService = mock(IMovieService.class);
-		
 		Movie sunesSommar = new Movie("Sunes Sommar", 2012);
 		Movie gravity = new Movie("Gravity", 2013);
 		uuidGravity = gravity.getId();
-		
 		movies = new ArrayList<>();
 		movies.add(sunesSommar);
 		movies.add(gravity);
 		
+		IMovieService movieService = mock(IMovieService.class);
 		when(movieService.deleteMovie(uuidGravity)).thenReturn(gravity);
-
 		when(movieService.deleteMovie("incorrectUUID")).thenThrow(new MovieNotFoundException("No movie with specified UUID found."));
+
 		// Start the server
-		AbstractModule testModule = new MovieTestModule(movieService);
+		AbstractModule testModule = new DomainModule(movieService);
 		server = AltranREST.startServer(8090, testModule);
 	}
 
@@ -98,12 +97,10 @@ public class MovieResourceDeleteSpecificTest {
 
 		// Execute method and receive response
 		HttpResponse response = httpHelper.executeMethod(httpDelete);
-		
-		// Verify that the correct movie has been deleted
 		String responseData = HttpHelper.responseData(response);
 		
+		// Verify that the correct movie has been deleted
 		MovieBean deletedMovie = new ObjectMapper().readValue(responseData, MovieBean.class);	
-		
 		assertEquals("Expected movie title Gravity", "Gravity", deletedMovie.getTitle());	
 	}
 	

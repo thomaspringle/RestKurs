@@ -9,18 +9,18 @@ public class MovieService implements IMovieService {
 
 	List<Movie> movies = new ArrayList<>();
 	
-	MovieService() {
+	public MovieService() {
 		movies.add(new Movie("Gravity", 2013));
 	}
 	
 	public List<Movie> getMovies() {
-		return movies;
+		return new ArrayList<>(movies);
 	}
 	
 	@Override
 	public Movie getMovie(String movieId) {
 		for (Movie movie : movies) {
-			if (movie.getId().equals(movieId)) {
+			if (movie.hasId(movieId)) {
 				return movie;
 			}
 		}
@@ -37,7 +37,7 @@ public class MovieService implements IMovieService {
 	@Override
 	public List<Movie> deleteAllMovies() {
 		movies.clear();
-		return movies;
+		return new ArrayList<>(movies);
 	}
 
 	@Override

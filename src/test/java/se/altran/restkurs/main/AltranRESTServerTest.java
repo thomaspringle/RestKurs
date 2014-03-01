@@ -23,7 +23,6 @@ public class AltranRESTServerTest {
 			Server server = AltranREST.startServer(8090, guiceModule);
 
 			// Verify that the server responds
-			// Read the Movies resource as a JSON String
 			HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
 			HttpGet httpGet = new HttpGet("/webapi");
 			

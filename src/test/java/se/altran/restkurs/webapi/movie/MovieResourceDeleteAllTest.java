@@ -18,6 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.altran.restkurs.main.AltranREST;
+import se.altran.restkurs.main.DomainModule;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.webapi.HttpHelper;
@@ -34,20 +35,17 @@ public class MovieResourceDeleteAllTest {
 	public void setUp() throws Exception {
 	
 		// Mock the MovieService with some test data
-		IMovieService movieService = mock(IMovieService.class);
-		
 		Movie sunesSommar = new Movie("Sunes Sommar", 2012);
 		Movie gravity = new Movie("Gravity", 2013);
-
 		movies = new ArrayList<>();
 		movies.add(sunesSommar);
 		movies.add(gravity);
 		
+		IMovieService movieService = mock(IMovieService.class);
 		when(movieService.getMovies()).thenReturn(movies);
 
-
 		// Start the server
-		AbstractModule testModule = new MovieTestModule(movieService);
+		AbstractModule testModule = new DomainModule(movieService);
 		server = AltranREST.startServer(8090, testModule);
 
 	}
@@ -57,9 +55,8 @@ public class MovieResourceDeleteAllTest {
 	@Test
 	public void testMovies_DELETE_correctStatusCode() throws Exception {
 		
-		// Read the Movies resource as a JSON String
+
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		
 		HttpDelete httpDelete = new HttpDelete("/webapi/movies");
 
 		// Execute method and receive response
@@ -74,16 +71,14 @@ public class MovieResourceDeleteAllTest {
 	@Test
 	public void testMovies_DELETE_returnEmptyMovies() throws Exception {
 		
-		// Read the Movies resource as a JSON String
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		
 		HttpDelete httpDelete = new HttpDelete("/webapi/movies");
 
 		// Execute method and receive response
 		HttpResponse response = httpHelper.executeMethod(httpDelete);
-		
 		String responseData = HttpHelper.responseData(response);
 		
+		// Verify that the movie list is empty
 		List<MovieBean> movies = new ObjectMapper().readValue(responseData, new TypeReference<List<MovieBean>>(){});
 		assertTrue("Movies are empty after deletion", movies.isEmpty());
 	}

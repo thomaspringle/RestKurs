@@ -17,9 +17,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.altran.restkurs.main.AltranREST;
+import se.altran.restkurs.main.DomainModule;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.webapi.HttpHelper;
-import se.altran.restkurs.webapi.movie.MovieBean;
 
 import com.google.inject.AbstractModule;
 
@@ -31,14 +31,14 @@ public class MovieResourcePostTest {
 	
 	@Before
 	public void setUp() throws Exception {
-	
-		uuid = UUID.randomUUID().toString();
+
 		// Mock the MovieService with some test data
+		uuid = UUID.randomUUID().toString();
 		IMovieService movieService = mock(IMovieService.class);
-				
 		when(movieService.createMovie(any(MovieBean.class))).thenReturn(uuid);
+		
 		// Start the server
-		AbstractModule testModule = new MovieTestModule(movieService);
+		AbstractModule testModule = new DomainModule(movieService);
 		server = AltranREST.startServer(8090, testModule);
 
 	}
@@ -48,7 +48,6 @@ public class MovieResourcePostTest {
 		
 		// Create POST command to /webapi/movies
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		
 		HttpPost httpPost = new HttpPost("/webapi/movies");
 		httpPost.setHeader("Accept", "application/json");
 
@@ -69,7 +68,6 @@ public class MovieResourcePostTest {
 		
 		// Create POST command to /webapi/movies
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		
 		HttpPost httpPost = new HttpPost("/webapi/movies");
 		httpPost.setHeader("Accept", "application/json");
 
@@ -93,7 +91,6 @@ public class MovieResourcePostTest {
 		
 		// Create POST command to /webapi/movies
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		
 		HttpPost httpPost = new HttpPost("/webapi/movies");
 		httpPost.setHeader("Accept", "application/json");
 
@@ -115,10 +112,8 @@ public class MovieResourcePostTest {
 		
 		// Create POST command to /webapi/movies
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		
 		String uri = "/webapi/movies/" + uuid;
 		HttpPost httpPost = new HttpPost(uri);
-		
 		httpPost.setHeader("Accept", "application/json");
 
 		// Define data to be posted

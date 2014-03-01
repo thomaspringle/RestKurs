@@ -4,15 +4,29 @@ import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.MovieService;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Scopes;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
 
 
 public class DomainModule extends AbstractModule {
 	
+	private IMovieService movieService;
+	
+	public DomainModule(IMovieService movieService) {
+		this.movieService = movieService;
+	}
+	
+	public DomainModule() {
+		movieService = new MovieService();
+	}
+	
     @Override
     protected void configure() {
     	
-//    	bind(ConnectedDevicesService.class).in(Scopes.SINGLETON);
-        bind(IMovieService.class).to(MovieService.class).in(Scopes.SINGLETON);
     }    
+    
+    @Provides @Singleton
+    private IMovieService provideIMovieService() {
+    	return movieService;
+    }
 }

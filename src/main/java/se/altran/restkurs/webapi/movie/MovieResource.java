@@ -48,7 +48,7 @@ public class MovieResource {
 	public MovieBean movie(@PathParam("movieId") String movieId) {
 		Movie movie = movieService.getMovie(movieId);
 		
-		return new MovieBean(movie);
+		return movie.asMovieBean();
 	}
 	
 	@POST
@@ -69,7 +69,7 @@ public class MovieResource {
 	public Response updateMovie(@PathParam("movieId") String movieId, MovieBean movieBean) {
 		try {
 			Movie movie = movieService.updateMovie(movieBean);
-			return Response.ok(new MovieBean(movie)).build();
+			return Response.ok(movie.asMovieBean()).build();
 		} catch (MovieNotFoundException e) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -89,7 +89,7 @@ public class MovieResource {
 	public Response deleteMovie(@PathParam("movieId") String movieId) {
 		try {
 			Movie movie = movieService.deleteMovie(movieId);
-			return Response.ok(new MovieBean(movie)).build();
+			return Response.ok(movie.asMovieBean()).build();
 		} catch (MovieNotFoundException e) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
