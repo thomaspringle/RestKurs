@@ -26,6 +26,7 @@ public class DomainModule extends AbstractModule {
 	
 	public DomainModule() {
 		movieService = new MovieService();
+		actorService = new ActorService();
 	}
 	
     @Override

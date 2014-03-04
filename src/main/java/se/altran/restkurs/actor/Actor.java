@@ -27,6 +27,15 @@ public class Actor {
 		return new ActorBean(id, firstName, lastName, MovieBeanHelper.asMovieBeans(movies));
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public boolean hasId(String actorId) {
+		return this.id.equals(actorId);
+	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -52,4 +61,7 @@ public class Actor {
 			return false;
 		return true;
 	}
+
+
+
 }

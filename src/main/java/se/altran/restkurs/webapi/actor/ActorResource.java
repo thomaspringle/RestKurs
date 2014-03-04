@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,5 +27,15 @@ public class ActorResource {
 		List<Actor> actors = actorService.getActors();
 		List<ActorBean> actorBeans = ActorBeanHelper.asMovieBeans(actors);
 		return Response.ok(actorBeans).build();
+	}
+	
+	
+	@GET
+	@Path("/{actorId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ActorBean getActor(@PathParam("actorId") String actorId) {
+		Actor actor = actorService.getActor(actorId);
+		
+		return actor.asActorBean();
 	}
 }

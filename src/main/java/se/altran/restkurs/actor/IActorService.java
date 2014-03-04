@@ -6,4 +6,6 @@ public interface IActorService {
 
 	public List<Actor> getActors();
 
+	public Actor getActor(String actorId);
+
 }

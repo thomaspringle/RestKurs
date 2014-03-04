@@ -9,10 +9,10 @@ import se.altran.restkurs.webapi.movie.MovieBean;
 
 public class ActorBean {
 
-	String id;
-	String firstName;
-	String lastName;
-	List<MovieBean> movies;
+	private String id;
+	private String firstName;
+	private String lastName;
+	private List<MovieBean> movies;
 	
 	ActorBean() {}
 

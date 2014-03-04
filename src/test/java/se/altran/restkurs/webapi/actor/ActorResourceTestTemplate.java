@@ -18,7 +18,7 @@ import se.altran.restkurs.movie.Movie;
 
 import com.google.inject.AbstractModule;
 
-public class ActorResourceTest {
+public class ActorResourceTestTemplate {
 
 	private Server server;
 	private List<Actor> actors;
@@ -34,8 +34,8 @@ public class ActorResourceTest {
 		
 		ArrayList<Movie> sandraBullockMovies = new ArrayList<Movie>();
 		sandraBullockMovies.add(new Movie("Speed", 1994));
-		sandraBullockMovies.add(new Movie("crash", 2004));
 		sandraBullockMovies.add(new Movie("28 Days", 2000));
+		sandraBullockMovies.add(new Movie("crash", 2004));
 		sandraBullockMovies.add(new Movie("Gravity", 2013));
 		
 		Actor sandraBullock = new Actor("Sandra", "Bullock", sandraBullockMovies);

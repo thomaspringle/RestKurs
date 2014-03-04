@@ -66,7 +66,7 @@ public class MovieResourceGetNotEmptyTest {
 		
 		// Verify the returned data
 		List<MovieBean> parsedMovies = deserializeMovies(responseData);
-		assertFalse("Movies must exist.", movies.isEmpty());
+		assertFalse("Movies must exist.", parsedMovies.isEmpty());
 		assertEquals("All movies were not found.", movies.size(), parsedMovies.size());
 	}
 
