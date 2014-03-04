@@ -11,8 +11,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,6 +20,7 @@ import javax.ws.rs.core.UriInfo;
 import se.altran.restkurs.movie.IMovieService;
 import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.movie.MovieNotFoundException;
+import se.altran.restkurs.webapi.actor.ActorResource;
 
 import com.google.inject.Inject;
 
@@ -47,7 +46,6 @@ public class MovieResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public MovieBean movie(@PathParam("movieId") String movieId) {
 		Movie movie = movieService.getMovie(movieId);
-		
 		return movie.asMovieBean();
 	}
 	
@@ -95,12 +93,8 @@ public class MovieResource {
 		}
 	}
 	
-	@PUT
-	@Path("/users/{userId}")
-	public String getUserById(@PathParam("userId") String userId, @QueryParam("name") String data) { 
-		if (userId.isEmpty()) {
-			throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
-		}
-		return "";
-	}
+	@Path("/actors")
+	public Class<ActorResource> getActorResource() {
+        return ActorResource.class;
+    }
 }

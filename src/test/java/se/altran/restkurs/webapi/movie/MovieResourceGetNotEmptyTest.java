@@ -27,7 +27,6 @@ import com.google.inject.AbstractModule;
 
 public class MovieResourceGetNotEmptyTest {
     
-	
 	private ArrayList<Movie> movies;
 	private Server server;
 	private String uuidSunesSommar;
