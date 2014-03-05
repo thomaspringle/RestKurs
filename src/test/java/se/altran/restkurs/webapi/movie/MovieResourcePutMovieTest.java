@@ -1,9 +1,11 @@
 package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.util.UUID;
 
@@ -25,15 +27,15 @@ import com.google.inject.AbstractModule;
 
 public class MovieResourcePutMovieTest {
     
-	
 	private Server server;
 	private String uuid;
+	private IMovieService movieService;
 	
 	@Before
 	public void setUp() throws Exception {
 	
 		// Mock the MovieService with some test data
-		IMovieService movieService = mock(IMovieService.class);
+		movieService = mock(IMovieService.class);
 		uuid = UUID.randomUUID().toString();				
 		when(movieService.createMovie(any(MovieBean.class))).thenReturn(uuid);
 		
@@ -61,6 +63,7 @@ public class MovieResourcePutMovieTest {
 		// Verify that the correct status code has been set
 		int statusCode = response.getStatusLine().getStatusCode();
 		assertEquals("Expected Status Code 201 - Created", 201, statusCode);	
+		verify(movieService).createMovie(any(MovieBean.class));
 	}
 
 	@Test
@@ -82,6 +85,7 @@ public class MovieResourcePutMovieTest {
 		String location = response.getHeaders("Location")[0].getValue();
 		String newMovieUri = "http://127.0.0.1:8090/webapi/movies/" + uuid;
 		assertEquals("A link to the new movie must be returned.", newMovieUri, location);
+		verify(movieService).createMovie(any(MovieBean.class));
 	}
 	
 	

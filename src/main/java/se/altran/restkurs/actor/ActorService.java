@@ -3,7 +3,7 @@ package se.altran.restkurs.actor;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.altran.restkurs.movie.Movie;
+import se.altran.restkurs.webapi.actor.ActorBean;
 
 import com.google.inject.Singleton;
 
@@ -14,15 +14,15 @@ public class ActorService implements IActorService {
 	
 	public ActorService() {
 		actors = new ArrayList<>();
-		ArrayList<Movie> peterHaberMovies = new ArrayList<Movie>();
-		peterHaberMovies.add(new Movie("Sunes Sommar", 1993));
-		peterHaberMovies.add(new Movie("Beck", 1999));
+		ArrayList<String> peterHaberMovies = new ArrayList<String>();
+		peterHaberMovies.add("Sunes Sommar");
+		peterHaberMovies.add("Beck");
 		
-		ArrayList<Movie> sandraBullockMovies = new ArrayList<Movie>();
-		sandraBullockMovies.add(new Movie("Speed", 1994));
-		sandraBullockMovies.add(new Movie("28 Days", 2000));
-		sandraBullockMovies.add(new Movie("crash", 2004));
-		sandraBullockMovies.add(new Movie("Gravity", 2013));
+		ArrayList<String> sandraBullockMovies = new ArrayList<String>();
+		sandraBullockMovies.add("Speed");
+		sandraBullockMovies.add("28 Days");
+		sandraBullockMovies.add("crash");
+		sandraBullockMovies.add("Gravity");
 		
 		Actor sandraBullock = new Actor("Sandra", "Bullock", sandraBullockMovies);
 		Actor peterHaber = new Actor("Peter", "Haber", peterHaberMovies);
@@ -44,6 +44,34 @@ public class ActorService implements IActorService {
 			}
 		}
 		throw new RuntimeException("Actor not found!");
+	}
+
+	@Override
+	public String createActor(ActorBean actorBean) {
+		Actor actor = new Actor(actorBean.getFirstName(), actorBean.getLastName(), actorBean.getMovies());
+		actors.add(actor);
+		return actor.getId();
+	}
+
+	@Override
+	public List<Actor> getActorsWithFirstName(String firstName) {
+		List<Actor> result = new ArrayList<>();
+		for (Actor actor : actors) {
+			if (actor.hasFirstName(firstName)) {
+				result.add(actor);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<Actor> getActorsWithPagination(int offset, int limit) {
+		if (actors.size() < offset+limit) {
+			if (actors.size() < offset) {
+				return new ArrayList<>();
+			}
+		}
+		return actors.subList(offset, offset+limit);
 	}
 	
 }

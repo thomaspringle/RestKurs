@@ -1,8 +1,10 @@
 package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +30,13 @@ public class MovieResourceGetEmptyTest {
     	
 	private ArrayList<Movie> movies;
 	private Server server;
+	private IMovieService movieService;
 	
 	@Before
 	public void setUp() throws Exception {
 	
 		// Mock the MovieService with test data
-		IMovieService movieService = mock(IMovieService.class);
+		movieService = mock(IMovieService.class);
 		movies = new ArrayList<>();
 		when(movieService.getMovies()).thenReturn(movies);
 
@@ -57,6 +60,7 @@ public class MovieResourceGetEmptyTest {
 		// Verify the returned data
 		List<MovieBean> parsedMovies = deserializeMovies(responseData);
 		assertEquals("All movies were not found.", movies.size(), parsedMovies.size());
+		verify(movieService).getMovies();
 	}
 	
 	protected List<MovieBean> deserializeMovies(String jsonMovies) throws Exception {

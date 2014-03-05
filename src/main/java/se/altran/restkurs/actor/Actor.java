@@ -3,18 +3,16 @@ package se.altran.restkurs.actor;
 import java.util.List;
 import java.util.UUID;
 
-import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.webapi.actor.ActorBean;
-import se.altran.restkurs.webapi.movie.MovieBeanHelper;
 
 public class Actor {
 
 	private final String id;
 	private String firstName;
 	private String lastName;
-	private List<Movie> movies;
+	private List<String> movies;
 	
-	public Actor(String firstName, String lastName, List<Movie> movies) {
+	public Actor(String firstName, String lastName, List<String> movies) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.movies = movies;
@@ -24,7 +22,7 @@ public class Actor {
 	
 	
 	public ActorBean asActorBean() {
-		return new ActorBean(id, firstName, lastName, MovieBeanHelper.asMovieBeans(movies));
+		return new ActorBean(id, firstName, lastName, movies);
 	}
 
 	public String getId() {
@@ -35,6 +33,9 @@ public class Actor {
 		return this.id.equals(actorId);
 	}
 
+	public boolean hasFirstName(String firstName) {
+		return this.firstName.equals(firstName);
+	}
 
 
 	@Override
@@ -61,7 +62,4 @@ public class Actor {
 			return false;
 		return true;
 	}
-
-
-
 }

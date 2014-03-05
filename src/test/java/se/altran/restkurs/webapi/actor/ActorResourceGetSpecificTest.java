@@ -1,8 +1,10 @@
 package se.altran.restkurs.webapi.actor;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,6 @@ import se.altran.restkurs.actor.Actor;
 import se.altran.restkurs.actor.IActorService;
 import se.altran.restkurs.main.AltranREST;
 import se.altran.restkurs.main.DomainModule;
-import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.webapi.HttpHelper;
 
 import com.google.inject.AbstractModule;
@@ -30,21 +31,22 @@ public class ActorResourceGetSpecificTest {
 	private List<Actor> actors;
 	
 	private String uuidPeterHaber;
+	private IActorService actorService;
 	
 	@Before
 	public void setUp() throws Exception {
 	
 		// Mock the ActorService with some test data
 		actors = new ArrayList<>();
-		ArrayList<Movie> peterHaberMovies = new ArrayList<Movie>();
-		peterHaberMovies.add(new Movie("Sunes Sommar", 1993));
-		peterHaberMovies.add(new Movie("Beck", 1999));
+		ArrayList<String> peterHaberMovies = new ArrayList<String>();
+		peterHaberMovies.add("Sunes Sommar");
+		peterHaberMovies.add("Beck");
 		
-		ArrayList<Movie> sandraBullockMovies = new ArrayList<Movie>();
-		sandraBullockMovies.add(new Movie("Speed", 1994));
-		sandraBullockMovies.add(new Movie("28 Days", 2000));
-		sandraBullockMovies.add(new Movie("crash", 2004));
-		sandraBullockMovies.add(new Movie("Gravity", 2013));
+		ArrayList<String> sandraBullockMovies = new ArrayList<String>();
+		sandraBullockMovies.add("Speed");
+		sandraBullockMovies.add("28 Days");
+		sandraBullockMovies.add("crash");
+		sandraBullockMovies.add("Gravity");
 		
 		Actor sandraBullock = new Actor("Sandra", "Bullock", sandraBullockMovies);
 		Actor peterHaber = new Actor("Peter", "Haber", peterHaberMovies);
@@ -53,7 +55,7 @@ public class ActorResourceGetSpecificTest {
 		actors.add(peterHaber);
 		uuidPeterHaber = peterHaber.getId();
 		
-		IActorService actorService = mock(IActorService.class);
+		actorService = mock(IActorService.class);
 		when(actorService.getActor(uuidPeterHaber)).thenReturn(peterHaber);
 		// Start the server
 		AbstractModule testModule = new DomainModule(actorService);
@@ -76,6 +78,8 @@ public class ActorResourceGetSpecificTest {
 		assertEquals("The correct first name must be set", "Peter", peterHaber.getFirstName());
 		assertEquals("The correct last name must be set", "Haber", peterHaber.getLastName());
 		assertEquals("The correct movies must be set", 2, peterHaber.getMovies().size());
+		
+		verify(actorService).getActor(uuidPeterHaber);
 	}
 	
 	@After

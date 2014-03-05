@@ -1,8 +1,10 @@
 package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -25,7 +27,7 @@ public class MovieResourceGetSpecificMovieTest {
 	
 	private Server server;
 	private String uuidGravity;
-	
+	private IMovieService movieService;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -34,7 +36,7 @@ public class MovieResourceGetSpecificMovieTest {
 		Movie gravity = new Movie("Gravity", 2013);
 		uuidGravity = gravity.getId();
 		
-		IMovieService movieService = mock(IMovieService.class);
+		movieService = mock(IMovieService.class);
 		when(movieService.getMovie(uuidGravity)).thenReturn(gravity);
 		
 		// Start the server
@@ -58,6 +60,8 @@ public class MovieResourceGetSpecificMovieTest {
 
 		assertEquals("Gravity must have correct title", "Gravity", gravity.getTitle());
 		assertEquals("Gravity must have correct year", 2013, gravity.getYear());
+		
+		verify(movieService).getMovie(uuidGravity);
 	}
 	
 	protected MovieBean deserializeMovie(String jsonMovie) throws Exception {

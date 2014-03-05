@@ -1,8 +1,10 @@
 package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public class MovieResourceDeleteSpecificTest {
 	private ArrayList<Movie> movies;
 	private Server server;
 	private String uuidGravity;
+	private IMovieService movieService;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -39,8 +42,8 @@ public class MovieResourceDeleteSpecificTest {
 		movies = new ArrayList<>();
 		movies.add(sunesSommar);
 		movies.add(gravity);
-		
-		IMovieService movieService = mock(IMovieService.class);
+
+		movieService = mock(IMovieService.class);
 		when(movieService.deleteMovie(uuidGravity)).thenReturn(gravity);
 		when(movieService.deleteMovie("incorrectUUID")).thenThrow(new MovieNotFoundException("No movie with specified UUID found."));
 
@@ -102,6 +105,7 @@ public class MovieResourceDeleteSpecificTest {
 		// Verify that the correct movie has been deleted
 		MovieBean deletedMovie = new ObjectMapper().readValue(responseData, MovieBean.class);	
 		assertEquals("Expected movie title Gravity", "Gravity", deletedMovie.getTitle());	
+		verify(movieService).deleteMovie(uuidGravity);
 	}
 	
 	@After

@@ -5,18 +5,16 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import se.altran.restkurs.webapi.movie.MovieBean;
-
 public class ActorBean {
 
 	private String id;
 	private String firstName;
 	private String lastName;
-	private List<MovieBean> movies;
+	private List<String> movies;
 	
 	ActorBean() {}
 
-	public ActorBean(String id, String firstName, String lastName, List<MovieBean> movies) {
+	public ActorBean(String id, String firstName, String lastName, List<String> movies) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -40,7 +38,7 @@ public class ActorBean {
 	}
 	
 	@JsonProperty
-	public List<MovieBean> getMovies() {
+	public List<String> getMovies() {
 		return movies;
 	}
 }

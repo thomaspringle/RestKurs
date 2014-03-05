@@ -14,7 +14,6 @@ import se.altran.restkurs.actor.Actor;
 import se.altran.restkurs.actor.IActorService;
 import se.altran.restkurs.main.AltranREST;
 import se.altran.restkurs.main.DomainModule;
-import se.altran.restkurs.movie.Movie;
 
 import com.google.inject.AbstractModule;
 
@@ -22,21 +21,22 @@ public class ActorResourceTestTemplate {
 
 	private Server server;
 	private List<Actor> actors;
+	private IActorService actorService;
 	
 	@Before
 	public void setUp() throws Exception {
 	
 		// Mock the ActorService with some test data
 		actors = new ArrayList<>();
-		ArrayList<Movie> peterHaberMovies = new ArrayList<Movie>();
-		peterHaberMovies.add(new Movie("Sunes Sommar", 1993));
-		peterHaberMovies.add(new Movie("Beck", 1999));
+		ArrayList<String> peterHaberMovies = new ArrayList<String>();
+		peterHaberMovies.add("Sunes Sommar");
+		peterHaberMovies.add("Beck");
 		
-		ArrayList<Movie> sandraBullockMovies = new ArrayList<Movie>();
-		sandraBullockMovies.add(new Movie("Speed", 1994));
-		sandraBullockMovies.add(new Movie("28 Days", 2000));
-		sandraBullockMovies.add(new Movie("crash", 2004));
-		sandraBullockMovies.add(new Movie("Gravity", 2013));
+		ArrayList<String> sandraBullockMovies = new ArrayList<String>();
+		sandraBullockMovies.add("Speed");
+		sandraBullockMovies.add("28 Days");
+		sandraBullockMovies.add("crash");
+		sandraBullockMovies.add("Gravity");
 		
 		Actor sandraBullock = new Actor("Sandra", "Bullock", sandraBullockMovies);
 		Actor peterHaber = new Actor("Peter", "Haber", peterHaberMovies);
@@ -44,7 +44,7 @@ public class ActorResourceTestTemplate {
 		actors.add(sandraBullock);
 		actors.add(peterHaber);
 		
-		IActorService actorService = mock(IActorService.class);
+		actorService = mock(IActorService.class);
 		when(actorService.getActors()).thenReturn(actors);
 
 		// Start the server

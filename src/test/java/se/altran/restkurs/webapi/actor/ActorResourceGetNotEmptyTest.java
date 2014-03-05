@@ -1,9 +1,11 @@
 package se.altran.restkurs.webapi.actor;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,7 +26,6 @@ import se.altran.restkurs.actor.Actor;
 import se.altran.restkurs.actor.IActorService;
 import se.altran.restkurs.main.AltranREST;
 import se.altran.restkurs.main.DomainModule;
-import se.altran.restkurs.movie.Movie;
 import se.altran.restkurs.webapi.HttpHelper;
 
 import com.google.inject.AbstractModule;
@@ -37,21 +38,22 @@ public class ActorResourceGetNotEmptyTest {
 	private String uuidPeterHaber;
 	private String uuidSandraBullock;
 
+	private IActorService actorService;
 	
 	@Before
 	public void setUp() throws Exception {
 	
 		// Mock the ActorService with some test data
 		actors = new ArrayList<>();
-		ArrayList<Movie> peterHaberMovies = new ArrayList<Movie>();
-		peterHaberMovies.add(new Movie("Sunes Sommar", 1993));
-		peterHaberMovies.add(new Movie("Beck", 1999));
+		ArrayList<String> peterHaberMovies = new ArrayList<String>();
+		peterHaberMovies.add("Sunes Sommar");
+		peterHaberMovies.add("Beck");
 		
-		ArrayList<Movie> sandraBullockMovies = new ArrayList<Movie>();
-		sandraBullockMovies.add(new Movie("Speed", 1994));
-		sandraBullockMovies.add(new Movie("28 Days", 2000));
-		sandraBullockMovies.add(new Movie("crash", 2004));
-		sandraBullockMovies.add(new Movie("Gravity", 2013));
+		ArrayList<String> sandraBullockMovies = new ArrayList<String>();
+		sandraBullockMovies.add("Speed");
+		sandraBullockMovies.add("28 Days");
+		sandraBullockMovies.add("crash");
+		sandraBullockMovies.add("Gravity");
 		
 		Actor sandraBullock = new Actor("Sandra", "Bullock", sandraBullockMovies);
 		Actor peterHaber = new Actor("Peter", "Haber", peterHaberMovies);
@@ -61,7 +63,7 @@ public class ActorResourceGetNotEmptyTest {
 		uuidSandraBullock = sandraBullock.getId();
 		uuidPeterHaber = peterHaber.getId();
 		
-		IActorService actorService = mock(IActorService.class);
+		actorService = mock(IActorService.class);
 		when(actorService.getActors()).thenReturn(actors);
 
 		// Start the server
@@ -83,7 +85,7 @@ public class ActorResourceGetNotEmptyTest {
 		List<ActorBean> parsedActors = deserializeActors(responseData);
 		assertFalse("Movies must exist.", parsedActors.isEmpty());
 		assertEquals("All movies were not found.", actors.size(), parsedActors.size());
-
+		verify(actorService).getActors();
 	}
 	
 	@Test
@@ -106,6 +108,7 @@ public class ActorResourceGetNotEmptyTest {
 		
 		ActorBean sandraBullock = getActorWithId(parsedActors, uuidSandraBullock);
 		assertEquals("The correct movies must be set", 4, sandraBullock.getMovies().size());
+		verify(actorService).getActors();
 	}
 	
 	

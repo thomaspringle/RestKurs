@@ -1,9 +1,11 @@
 package se.altran.restkurs.webapi.movie;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class MovieResourceGetNotEmptyTest {
 	private Server server;
 	private String uuidSunesSommar;
 	private String uuidGravity;
-	
+	private IMovieService movieService;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -45,7 +47,7 @@ public class MovieResourceGetNotEmptyTest {
 		uuidSunesSommar = sunesSommar.getId();
 		uuidGravity = gravity.getId();
 		
-		IMovieService movieService = mock(IMovieService.class);
+		movieService = mock(IMovieService.class);
 		when(movieService.getMovies()).thenReturn(movies);
 
 		// Start the server
@@ -68,6 +70,7 @@ public class MovieResourceGetNotEmptyTest {
 		List<MovieBean> parsedMovies = deserializeMovies(responseData);
 		assertFalse("Movies must exist.", parsedMovies.isEmpty());
 		assertEquals("All movies were not found.", movies.size(), parsedMovies.size());
+		verify(movieService).getMovies();
 	}
 
 	@Test
@@ -91,6 +94,7 @@ public class MovieResourceGetNotEmptyTest {
 		
 		assertEquals("Gravity must have correct title", "Gravity", gravity.getTitle());
 		assertEquals("Gravity must have correct year", 2013, gravity.getYear());
+		verify(movieService).getMovies();
 	}
 
 	private MovieBean getMovieWithId(List<MovieBean> parsedMovies, String uuid) {
