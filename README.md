@@ -1,9 +1,9 @@
 Java REST övningar
 ==================
 ###Förberedelser
-Detta måste vara installerat.  
+Förutom din utvecklingsmiljö måste detta vara installerat.  
   
-**Java SE Development Kit 7** 
+**Java SE Development Kit 7**  
 http://www.oracle.com/technetwork/java/javase/downloads  
   
 **Maven 3**  
