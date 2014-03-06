@@ -136,3 +136,44 @@ Skicka med "-" i Authorization-headern för att slänga ett UnAuthorized excepti
 
 **Hjälp om du fastnar:**
 - Använd ```@HeaderParam("Authorization") String userToken``` som parametrar i den befintliga metoden som svarar mot ```DELETE /actors```.
+  
+
+----------------  
+  
+###Uppgift 7 - extrauppgifter
+Redan klar? Här är några förslag på övningar.
+
+**Under-resurser**  
+Ta dig en titt på under-resurser, dvs hur resurser kan delas in i mindre delar:
+``` @Path("/actors/{id}/movies")
+    public Class<ActorMovieResource> getActorMovieResource() {
+        return ActorMovieResource.class;
+    } 
+```
+https://jersey.java.net/documentation/latest/jaxrs-resources.html#d0e2146  
+  
+  
+**Partiell respons**  
+För att minska storleken på meddelandena kan vi använda partiell respons. Vi kan låta klienten specificera vilka fält i den resulterande JSON-datan som skall exkluderas.
+  
+Ta en titt på http://wiki.fasterxml.com/JacksonFeatureJsonFilter och försök implementera filtrering på en resurs.
+  
+**Sökning**  
+Sökning kan returnera resultat med olika typer, både film och skådespelare. Fundera på hur detta skulle kunna lösas på bästa sätt och försök göra en implementation.
+
+**Versionering**
+Versionering kan skötas genom att antingen lägga på versionsnumret i URI:n eller i Accept-headern.  
+När det används i Accept-headern brukar det se ut på följande sätt:  
+```Accept: application/vnd.example.v1+json```  
+Försök skapa två resurser, en som svarar med version 1 och en för version 2 av API:t.  
+(Detta kräver säkert lite googling)  
+
+**Metadata i paginering**  
+Ett vanligt mönster är att returnera en metadata-del i JSON-datan för att berätta vilken sida som datan representerar.  
+```  
+{  
+    "movies": [ . . .  ],  
+    "__metadata": { "total": 93, "limit": 15, "offset": 30 }  
+}  
+```
+Försök att åstadkomma detta på en resurs med paginering.
