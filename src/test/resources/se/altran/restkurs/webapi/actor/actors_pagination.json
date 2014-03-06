@@ -3,84 +3,48 @@
         "firstName": "Brad",
         "lastName": "Pitt",
         "movies": [
-            {
-                "id": "fightclub"
-            },
-            {
-                "id": "snatch"
-            },
-            {
-                "id": "themexican"
-            },
-            {
-                "id": "oceanstwelve"
-            },
-            {
-                "id": "troy"
-            },
-            {
-                "id": "babel"
-            }
+            "fightclub",
+            "snatch",
+            "themexican",
+            "oceanstwelve",
+            "troy",
+            "babel"
         ]
     },
     {
         "firstName": "Cate",
         "lastName": "Blanchett",
         "movies": [
-            {
-                "id": "parklands"
-            },
-            {
-                "id": "elizabeth"
-            },
-            {
-                "id": "babel"
-            }
+            "parklands",
+            "elizabeth",
+            "babel"
         ]
     },
     {
         "firstName": "Russell",
         "lastName": "Crowe",
         "movies": [
-            {
-                "id": "laconfidential"
-            },
-            {
-                "id": "gladiator"
-            },
-            {
-                "id": "stateofplay"
-            }
+            "laconfidential",
+            "gladiator",
+            "stateofplay"
         ]
     },
     {
         "firstName": "Helen",
         "lastName": "Mirren",
         "movies": [
-            {
-                "id": "theclearing"
-            },
-            {
-                "id": "thequeen"
-            },
-            {
-                "id": "stateofplay"
-            }
+            "theclearing",
+            "thequeen",
+            "stateofplay"
         ]
     },
     {
         "firstName": "Ben",
         "lastName": "Affleck",
         "movies": [
-            {
-                "id": "chasingamy"
-            },
-            {
-                "id": "dogma"
-            },
-            {
-                "id": "stateofplay"
-            }
+            "chasingamy",
+            "dogma",
+            "stateofplay"
         ]
     }
 ]

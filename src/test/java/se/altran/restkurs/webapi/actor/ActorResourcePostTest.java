@@ -28,6 +28,7 @@ import com.google.inject.AbstractModule;
 
 public class ActorResourcePostTest {
 
+	private static final String ACTOR_JSON = "actor.json";
 	private Server server;
 	private String uuid = "actor_uuid";
 	private IActorService actorService;
@@ -109,7 +110,7 @@ public class ActorResourcePostTest {
 	}
 	
 	private String getActorJsonFromFile() throws IOException {
-		BufferedReader r = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("actor.json")));
+		BufferedReader r = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream(ACTOR_JSON)));
 		 
 		StringBuffer sb = new StringBuffer();
 		String line;

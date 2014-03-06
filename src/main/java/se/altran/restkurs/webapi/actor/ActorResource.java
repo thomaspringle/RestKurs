@@ -1,6 +1,7 @@
 package se.altran.restkurs.webapi.actor;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.UriInfo;
 
 import se.altran.restkurs.actor.Actor;
 import se.altran.restkurs.actor.IActorService;
+import se.altran.restkurs.webapi.movie.MovieResource;
 
 import com.google.inject.Inject;
 
@@ -55,6 +57,27 @@ public class ActorResource {
 	public ActorBean getActor(@PathParam("actorId") String actorId) {
 		Actor actor = actorService.getActor(actorId);
 		return actor.asActorBean();
+	}
+	
+	@GET
+	@Path("/{actorId}/movies")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<MovieLinkBean> getMoviesForActor(@Context UriInfo uriInfo, @PathParam("actorId") String actorId) {
+		Actor actor = actorService.getActor(actorId);
+		ActorBean actorBean = actor.asActorBean();
+		List<MovieLinkBean> movieLinks = createMovieLinks(uriInfo, actorBean);
+		return movieLinks;
+	}
+
+
+	private List<MovieLinkBean> createMovieLinks(UriInfo uriInfo, ActorBean actorBean) {
+		List<String> movieIds = actorBean.getMovies();
+		List<MovieLinkBean> movieLinks = new ArrayList<>();
+		for (String movieId : movieIds) {
+			URI movieUri = uriInfo.getBaseUriBuilder().path(MovieResource.class).path(movieId).build();
+			movieLinks.add(new MovieLinkBean(movieId, movieUri.getPath()));
+		}
+		return movieLinks;
 	}
 	
 	@POST

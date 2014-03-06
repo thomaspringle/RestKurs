@@ -3,30 +3,18 @@
         "firstName": "Rachel",
         "lastName": "McAdams",
         "movies": [
-            {
-                "id": "weddingcrashers"
-            },
-            {
-                "id": "thefamilystone"
-            },
-            {
-                "id": "stateofplay"
-            }
+            "weddingcrashers",
+            "thefamilystone",
+            "stateofplay"
         ]
     },
     {
         "firstName": "Rachel",
         "lastName": "Weisz",
         "movies": [
-            {
-                "id": "themummy"
-            },
-            {
-                "id": "themummyreturns"
-            },
-            {
-                "id": "thefountain"
-            }
+            "themummy",
+            "themummyreturns",
+            "thefountain"
         ]
     }
 ]
