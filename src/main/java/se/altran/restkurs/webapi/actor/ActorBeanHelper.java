@@ -7,7 +7,7 @@ import se.altran.restkurs.actor.Actor;
 
 public class ActorBeanHelper {
 
-	public static List<ActorBean> asMovieBeans(List<Actor> actors) {
+	public static List<ActorBean> asActorBeans(List<Actor> actors) {
 		List<ActorBean> actorBeans = new ArrayList<>(actors.size());
 		for (Actor actor: actors) {
 			actorBeans.add(actor.asActorBean());

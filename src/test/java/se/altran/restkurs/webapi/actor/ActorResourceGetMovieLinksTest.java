@@ -1,6 +1,5 @@
 package se.altran.restkurs.webapi.actor;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -73,7 +72,6 @@ public class ActorResourceGetMovieLinksTest {
 		for (String movieId : moviesIds) {
 			assertTrue("Link to the movie resource must be set, /movies/uuid", responseData.contains("/webapi/movies/" + movieId));	
 		}
-		
 		
 		verify(actorService).getActor(uuid);
 	}

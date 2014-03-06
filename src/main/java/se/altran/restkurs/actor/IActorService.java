@@ -16,4 +16,6 @@ public interface IActorService {
 
 	public List<Actor> getActorsWithPagination(int offset, int limit);
 
+	public List<Actor> deleteActors(String userToken);
+
 }

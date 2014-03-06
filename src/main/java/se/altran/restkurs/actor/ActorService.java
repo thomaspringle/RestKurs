@@ -73,5 +73,11 @@ public class ActorService implements IActorService {
 		}
 		return actors.subList(offset, offset+limit);
 	}
+
+	@Override
+	public List<Actor> deleteActors(String userToken) {
+		actors.clear();
+		return actors;
+	}
 	
 }

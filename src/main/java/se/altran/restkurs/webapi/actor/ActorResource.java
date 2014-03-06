@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -46,7 +48,7 @@ public class ActorResource {
 			actors = actorService.getActors();
 		}
 		
-		List<ActorBean> actorBeans = ActorBeanHelper.asMovieBeans(actors);
+		List<ActorBean> actorBeans = ActorBeanHelper.asActorBeans(actors);
 		return Response.ok(actorBeans).build();
 	}
 	
@@ -88,5 +90,13 @@ public class ActorResource {
 		// Build URI to the created movie, and return it
 		URI actorUri = uriInfo.getBaseUriBuilder().path(ActorResource.class).path(id).build();
 		return Response.created(actorUri).build();
+	}
+	
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteMovies(@HeaderParam("Authorization") String userToken) {
+		List<Actor> actors = actorService.deleteActors(userToken);
+		List<ActorBean> actorBeans = ActorBeanHelper.asActorBeans(actors);
+		return Response.ok(actorBeans).build();
 	}
 }
