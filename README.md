@@ -1,7 +1,7 @@
 Java REST övningar
 ==================
 ###Förberedelser
-Förutom din utvecklingsmiljö måste detta vara installerat.  
+Förutom din utvecklingsmiljö måste följande vara installerat:
   
 **Java SE Development Kit 7**  
 http://www.oracle.com/technetwork/java/javase/downloads  
@@ -105,7 +105,7 @@ Lägg till test för länkar. Verifiera att testet falerar. Gör implementatione
 * Skapa upp en ```List<MovieLinkBean>``` som du returnerar.
 
 **Hjälp om du fastnar:**  
-- Bygg upp en URI till filmresursen genom att injecta @Context UriInfo uriInfo som en parameter. Länken till filmresursen kan sedan byggas upp genom uriInfo.getBaseUriBuilder().path(MovieResource.class).path(movieId)
+- Bygg upp en URI till filmresursen genom att injecta ```@Context UriInfo uriInfo``` som en parameter. Länken till filmresursen kan sedan byggas upp genom ```uriInfo.getBaseUriBuilder().path(MovieResource.class).path(movieId)```
 - Skapa upp en ny MovieLinkBean för varje URI, och lägg till i listan som returneras.
 - Resultatet bör se ut på följande sätt:
 ```
