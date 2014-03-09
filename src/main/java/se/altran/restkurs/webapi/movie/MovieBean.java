@@ -1,6 +1,6 @@
 package se.altran.restkurs.webapi.movie;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import javax.xml.bind.annotation.XmlElement;
 
 
 public class MovieBean {
@@ -17,17 +17,17 @@ public class MovieBean {
 		this.id = id;
 	}
 
-	@JsonProperty
+	@XmlElement
 	public String getId() {
 		return id;
 	}
 	
-	@JsonProperty
+	@XmlElement
 	public String getTitle() {
 		return title;
 	}
 
-	@JsonProperty
+	@XmlElement
 	public int getYear() {
 		return year;
 	}

@@ -1,5 +1,7 @@
 package se.altran.restkurs.webapi.actor;
 
+import javax.xml.bind.annotation.XmlElement;
+
 public class MovieLinkBean {
 
 	private String id;
@@ -12,10 +14,12 @@ public class MovieLinkBean {
 		this.uri = uri;
 	}
 
+	@XmlElement
 	public String getId() {
 		return id;
 	}
 
+	@XmlElement
 	public String getUri() {
 		return uri;
 	}

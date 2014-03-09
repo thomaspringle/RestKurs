@@ -22,7 +22,6 @@ public class RESTServletModule extends ServletModule {
         bind(SecurityExceptionMapper.class).in(Scopes.SINGLETON);
         bind(JsonParsingExceptionMapper.class).in(Scopes.SINGLETON);
 
-        
         // hook Jersey into Guice Servlet
         bind(GuiceContainer.class);
 
@@ -31,6 +30,4 @@ public class RESTServletModule extends ServletModule {
         
         serve("/*").with(GuiceContainer.class);
     }   
-    
-    
 }

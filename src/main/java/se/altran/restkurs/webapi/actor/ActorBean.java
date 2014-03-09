@@ -3,7 +3,7 @@ package se.altran.restkurs.webapi.actor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import javax.xml.bind.annotation.XmlElement;
 
 public class ActorBean {
 
@@ -22,22 +22,22 @@ public class ActorBean {
 	}
 	
 
-	@JsonProperty
+	@XmlElement
 	public String getId() {
 		return id;
 	}
 	
-	@JsonProperty
+	@XmlElement
 	public String getFirstName() {
 		return firstName;
 	}
 	
-	@JsonProperty
+	@XmlElement
 	public String getLastName() {
 		return lastName;
 	}
 	
-	@JsonProperty
+	@XmlElement
 	public List<String> getMovies() {
 		return movies;
 	}
