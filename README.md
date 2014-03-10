@@ -110,7 +110,7 @@ Lägg till test för länkar. Verifiera att testet falerar. Gör implementatione
 - Bygg upp en URI till filmresursen genom att injecta ```@Context UriInfo uriInfo``` som en parameter. Länken till filmresursen kan sedan byggas upp genom ```uriInfo.getBaseUriBuilder().path(MovieResource.class).path(movieId)```
 - Skapa upp en ny MovieLinkBean för varje URI, och lägg till i listan som returneras.
 - Resultatet bör se ut på följande sätt:
-```
+```json
 [
     {
         "id": "35bc4f81-fc1e-467b-bdcc-8d18010aa346",
@@ -147,7 +147,8 @@ Redan klar? Här är några förslag på övningar.
 
 **Under-resurser**  
 Ta dig en titt på under-resurser, dvs hur resurser kan delas in i mindre delar:
-``` @Path("/actors/{id}/movies")
+```java
+    @Path("/actors/{id}/movies")
     public Class<ActorMovieResource> getActorMovieResource() {
         return ActorMovieResource.class;
     } 
@@ -172,7 +173,7 @@ Försök skapa två resurser, en som svarar med version 1 och en för version 2 
 
 **Metadata i paginering**  
 Ett vanligt mönster är att returnera en metadata-del i JSON-datan för att berätta vilken sida som datan representerar.  
-```  
+```json  
 {  
     "movies": [ . . .  ],  
     "__metadata": { "total": 93, "limit": 15, "offset": 30 }  
@@ -188,7 +189,7 @@ Se om du kan använda PATCH-metoden för att uppdatera en resurs partiellt. Skic
 
 ```PATCH /actors/XXXXXXX```   
      
-```  
+```json  
     {
     	"id": "XXXXXXX",
         "firstName": "Sandrarara"
