@@ -148,10 +148,10 @@ Redan klar? Här är några förslag på övningar.
 **Under-resurser**  
 Ta dig en titt på under-resurser, dvs hur resurser kan delas in i mindre delar:
 ```java
-    @Path("/actors/{id}/movies")
-    public Class<ActorMovieResource> getActorMovieResource() {
-        return ActorMovieResource.class;
-    } 
+@Path("/actors/{id}/movies")
+public Class<ActorMovieResource> getActorMovieResource() {
+    return ActorMovieResource.class;
+} 
 ```
 https://jersey.java.net/documentation/latest/jaxrs-resources.html#d0e2146  
   
@@ -175,7 +175,7 @@ Försök skapa två resurser, en som svarar med version 1 och en för version 2 
 Ett vanligt mönster är att returnera en metadata-del i JSON-datan för att berätta vilken sida som datan representerar.  
 ```json  
 {  
-    "movies": [ . . .  ],  
+    "movies": [ , , ,  ],  
     "__metadata": { "total": 93, "limit": 15, "offset": 30 }  
 }  
 ```
@@ -190,9 +190,9 @@ Se om du kan använda PATCH-metoden för att uppdatera en resurs partiellt. Skic
 ```PATCH /actors/XXXXXXX```   
      
 ```json  
-    {
-    	"id": "XXXXXXX",
-        "firstName": "Sandrarara"
-    }
+{
+  	"id": "XXXXXXX",
+    "firstName": "Sandrarara"
+}
 ```
 Då skall de övriga fälten inte uppdateras.
