@@ -29,6 +29,8 @@ Vi kommer genomgående att använda JSON som mediatyp för request- och response
 
 Ett anti-corruption-layer i form av en MovieBean används för att inte blotta domänobjekten rakt ut i Web-API:t. Det är dessa som serialiseras och deserialiseras.
 
+Här finns mer dokumentation om koden:  
+https://github.com/thomaspringle/RestKurs/blob/master/SRC_INFO.md
   
 ----------------
      
@@ -177,3 +179,19 @@ Ett vanligt mönster är att returnera en metadata-del i JSON-datan för att ber
 }  
 ```
 Försök att åstadkomma detta på en resurs med paginering.
+
+**PATCH**  
+För att spara bandbredd används ofta PATCH i stället för PUT. PATCH innebär att enbart partiell information i en resurs uppdateras. 
+Tyvärr finns det inte någon PATCH-metod som följer med JAX-RS, men under ```se.altran.restkurs.webapi.PATCH.java``` finns en manuellt skapad annotering för att ta hand om PATCH-anrop.  
+  
+Se om du kan använda PATCH-metoden för att uppdatera en resurs partiellt. Skicka till exempel enbart förnamnet som data med PATCH till en befintlig skådespelare:
+
+```PATCH /actors/XXXXXXX```   
+     
+```  
+    {
+    	"id": "XXXXXXX",
+        "firstName": "Sandrarara"
+    }
+```
+Då skall de övriga fälten inte uppdateras.
