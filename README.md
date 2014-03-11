@@ -29,9 +29,12 @@ Vi kommer genomgående att använda JSON som mediatyp för request- och response
 
 Ett anti-corruption-layer i form av en MovieBean används för att inte blotta domänobjekten rakt ut i Web-API:t. Det är dessa som serialiseras och deserialiseras.
 
+**Mer info**  
 Här finns mer dokumentation om koden:  
 https://github.com/thomaspringle/RestKurs/blob/master/SRC_INFO.md
   
+  
+###HTTP-metoder  
 Det kan vara bra att kolla upp hur HTTP-metoderna förväntas fungera och vilken respons de bör ge:  
 http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html    
 Vad gäller t.ex. vid DELETE, vad skall returneras?  
