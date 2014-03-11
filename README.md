@@ -32,6 +32,11 @@ Ett anti-corruption-layer i form av en MovieBean används för att inte blotta d
 Här finns mer dokumentation om koden:  
 https://github.com/thomaspringle/RestKurs/blob/master/SRC_INFO.md
   
+Det kan vara bra att kolla upp hur HTTP-metoderna förväntas fungera och vilken respons de bör ge:  
+http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html    
+Vad gäller t.ex. vid DELETE, vad skall returneras?  
+*"A successful response SHOULD be 200 (OK) if the response includes an entity describing the status, 202 (Accepted) if the action has not yet been enacted, or 204 (No Content) if the action has been enacted but the response does not include an entity."*  
+    
 ----------------
      
 ###Uppgift 1 - GET
