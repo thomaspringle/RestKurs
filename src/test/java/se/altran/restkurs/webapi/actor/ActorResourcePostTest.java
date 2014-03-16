@@ -45,68 +45,65 @@ public class ActorResourcePostTest {
 		server = AltranREST.startServer(8090, testModule);
 	}
 	
+	// "POST /webapi/actors" must return Response with Status code 201.
 	@Test
 	public void testActors_POST_ReturnCreatedStatus() throws Exception {
 		
 		// Create POST command to /webapi/actors
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		HttpPost httpPost = new HttpPost("/webapi/actors");
-		httpPost.setHeader("Accept", "application/json");
 
 		// Define data to be posted
 		String data = getActorJsonFromFile();
-		httpPost.setEntity(new StringEntity(data, ContentType.create("application/json")));
+		
 
 		// Execute method and receive response
-		HttpResponse response = httpHelper.executeMethod(httpPost);
+		
 		
 		// Verify that the correct status code has been set
-		int statusCode = response.getStatusLine().getStatusCode();
-		assertEquals("Expected Status Code 201 - Created", 201, statusCode);
 		
-		verify(actorService).createActor(any(ActorBean.class));
+		// int statusCode = ...
+		// assertEquals("Expected Status Code 201 - Created", 201, statusCode);
+		
+		// verify(actorService).createActor(any(ActorBean.class));
 	}
 
+	// "POST /webapi/actors" must return Response with Location header set to the created Actor. 
+	// "Location: /webapi/actors/{new id}"
 	@Test
 	public void testMovies_POST_ReturnLocationToNewMovie() throws Exception {
 		
 		// Create POST command to /webapi/actors
 		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		HttpPost httpPost = new HttpPost("/webapi/actors");
-		httpPost.setHeader("Accept", "application/json");
 
 		// Define data to be posted
 		String data = getActorJsonFromFile();
-		httpPost.setEntity(new StringEntity(data, ContentType.create("application/json")));
 
 		// Execute method and receive response
-		HttpResponse response = httpHelper.executeMethod(httpPost);
+
 		
 		// Verify that the Location header has been set with the movie just created
-		String location = response.getHeaders("Location")[0].getValue();
-		String newActorUri = "http://127.0.0.1:8090/webapi/actors/" + uuid;
-		assertEquals("A link to the new actor must be returned.", newActorUri, location);
-		verify(actorService).createActor(any(ActorBean.class));
+		// String location = ... 
+		// String newActorUri = "http://127.0.0.1:8090/webapi/actors/" + uuid;
+		// assertEquals("A link to the new actor must be returned.", newActorUri, location);
+		// verify(actorService).createActor(any(ActorBean.class));
 	}
 	
+	// POSTing incorrect json data must return a Response with Status code 400
 	@Test
 	public void testMovies_POST_ReturnErrorStatus() throws Exception {
 		
 		// Create POST command to /webapi/actors
-		HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
-		HttpPost httpPost = new HttpPost("/webapi/actors");
-		httpPost.setHeader("Accept", "application/json");
+		// HttpHelper httpHelper = new HttpHelper("127.0.0.1", 8090);
 
 		// Define data to be posted
-		String data = "{incorrect json message}";
-		httpPost.setEntity(new StringEntity(data, ContentType.create("application/json")));
-
+		// String data = "{incorrect json message}";
+		
 		// Execute method and receive response
-		HttpResponse response = httpHelper.executeMethod(httpPost);
+		
 		
 		// Verify that the correct status code has been set
-		int statusCode = response.getStatusLine().getStatusCode();
-		assertEquals("Expected Status Code: 400 - Bad Request", 400, statusCode);
+		// int statusCode = ... 
+		// assertEquals("Expected Status Code: 400 - Bad Request", 400, statusCode);
 	}
 	
 	private String getActorJsonFromFile() throws IOException {
